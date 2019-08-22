@@ -1,0 +1,23 @@
+{
+  "name": "@tac/eslint-config-tac",
+  "version": "0.0.1",
+  "description": "eslint config for tac",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tac",
+    "eslint"
+  ],
+  "author": "alfred.qiu",
+  "license": "MIT",
+  "dependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.0.1",
+    "eslint-config-alloy": "^2.0.5",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2"
+  }
+}

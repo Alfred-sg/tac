@@ -1,0 +1,28 @@
+{
+  "name": "tac-tools",
+  "version": "0.0.1",
+  "description": "tools for tac",
+  "bin": {
+    "tac-tools": "./bin/index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf lib && tsc --outDir lib"
+  },
+  "keywords": [
+    "babel"
+  ],
+  "author": "alfred.qiu",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.5.4",
+    "@tac/babel-preset-tac": "^0.0.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "chokidar": "^3.0.2",
+    "rimraf": "^2.6.3",
+    "signale": "^1.4.0",
+    "through2": "^3.0.1",
+    "vinyl-fs": "^3.0.3",
+    "yargs-parser": "^13.1.1"
+  }
+}
