@@ -1,15 +1,20 @@
 import * as webpack from "webpack";
 import * as WebpackDevServer from 'webpack-dev-server';
-// import openBrowser from 'react-dev-utils/openBrowser';
+import openBrowser from 'react-dev-utils/openBrowser';
 import chalk from "chalk";
 import * as clipboardy from "clipboardy";
 import { choosePort, prepareUrls } from 'react-dev-utils/WebpackDevServerUtils';
-// import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
+import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import { Ctx, DevServer, Opts, Stats } from "./types";
-import config from "./config";
+import config from "./chain";
 
-export default function (ctx: Ctx, opts: Opts) {
-  const options = config(ctx, opts);
+/**
+ * 启动调试服务器
+ * @param ctx 上下文
+ * @param opts 选项
+ */
+export default function server(ctx: Ctx, opts: Opts) {
+  const options: webpack.Configuration = config(ctx, opts).toConfig();
   const compiler = webpack(options);
 
   const devServer: DevServer = opts.devServer || {};
@@ -34,7 +39,7 @@ export default function (ctx: Ctx, opts: Opts) {
       (beforeMiddlewares || []).forEach(middleware => {
         app.use(middleware);
       });
-      // app.use(errorOverlayMiddleware());
+      app.use(errorOverlayMiddleware());
     },
     after(app) {
       (afterMiddlewares || []).forEach(middleware => {
@@ -75,9 +80,9 @@ export default function (ctx: Ctx, opts: Opts) {
         ].join('\n'));
 
 
-        // if ( openBrowser(urls.localUrlForBrowser) ){
-        //   console.log('The browser tab has been opened!');
-        // };
+        if ( openBrowser(urls.localUrlForBrowser) ){
+          console.log('The browser tab has been opened!');
+        };
 
         isFirstCompile = false;
       };

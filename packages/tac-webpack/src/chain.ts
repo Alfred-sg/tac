@@ -1,4 +1,4 @@
-import * as Config from "webpack-chain";
+import * as Chain from "webpack-chain";
 import applyContext from "./options/context";
 import applyDevtool from "./options/devtool";
 import applyEntry from "./options/entry";
@@ -11,8 +11,8 @@ import applyResolve from "./options/resolve";
 import applyWatch from "./options/watch";
 import { Ctx, Opts } from "./types";
 
-export default function (ctx: Ctx, opts: Opts) {
-  ctx.config = new Config();
+export default function chain(ctx: Ctx, opts: Opts): Chain {
+  ctx.config = new Chain();
 
   ctx.emit("webpack.start", opts);
 
@@ -30,5 +30,5 @@ export default function (ctx: Ctx, opts: Opts) {
   
   ctx.emit("webpack.end", ctx.config);
 
-  return ctx.config.toConfig();
+  return ctx.config;
 }

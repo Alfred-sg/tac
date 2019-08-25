@@ -32,7 +32,6 @@ export default function apply(ctx: Ctx, opts: Opts) {
               ],
               ...presets
             ],
-            exclude: [/node_modules/],
             ...babelOptions
           })
           .end()

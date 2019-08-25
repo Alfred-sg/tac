@@ -7,13 +7,23 @@
     "tac": "bin/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf lib && tsc --outDir lib",
+    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=codeframe ./src",
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=codeframe ./src"
   },
   "author": "alfred",
   "license": "MIT",
   "dependencies": {
     "@tac/utils": "^0.0.1",
+    "@tac/webpack": "^0.0.1",
     "chalk": "^2.4.2",
-    "common-bin": "^2.8.1"
+    "common-bin": "^2.8.1",
+    "tslib": "^1.10.0",
+    "yargs": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.5.3"
   }
 }

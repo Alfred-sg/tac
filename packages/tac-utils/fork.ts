@@ -1,5 +1,4 @@
 import cp from 'child_process';
-import debug from 'debug';
 
 const childs = new Set();
 let hasBound = false;
@@ -30,7 +29,6 @@ function graceful(proc){
 
 export default function fork(modulePath: string, args = [], options = { }){
   options.stdio = options.stdio || 'inherit';
-  debug('Run fork `%s %s %s`', process.execPath, modulePath, args.join(' '));
   const proc = cp.fork(modulePath, args, options);
   graceful(proc);
  

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const Command = require('../lib/Command');
-const command = new Command();
-command.start();
+const Context = require('../lib/Context').default;
+const command = new Context();
+command.run();

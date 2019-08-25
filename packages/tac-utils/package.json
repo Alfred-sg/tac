@@ -4,12 +4,23 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf lib && tsc --outDir lib",
+    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=codeframe ./src",
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=codeframe ./src"
   },
   "author": "alfred",
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.2",
-    "cross-spawn": "^6.0.5"
+    "common-bin": "^2.8.2",
+    "cross-spawn": "^6.0.5",
+    "debug": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.0",
+    "@types/debug": "^4.1.5",
+    "@types/node": "^12.6.6",
+    "rimraf": "^2.6.2",
+    "typescript": "^3.5.3"
   }
 }

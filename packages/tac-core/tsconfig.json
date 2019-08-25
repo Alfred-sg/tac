@@ -1,21 +1,28 @@
+// http://json.schemastore.org/tsconfig
 {
   "compilerOptions": {
-    "strictNullChecks": true,
+    "baseUrl": "./src",
+    "outDir": "./lib",
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["dom", "es7"],
     "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "jsx": "preserve",
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noImplicitAny": true,
-    "target": "es6",
-    "lib": [
-      "dom",
-      "es7"
-    ]
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "importHelpers": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "experimentalDecorators": true,
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    // "esModuleInterop": true,
   },
-  "exclude": [
-    "node_modules",
-    "lib",
-    "es"
+  "include": [
+    "./src/**/*"
   ]
 }

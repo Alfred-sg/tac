@@ -32,6 +32,6 @@ export default function install(name: string, options: Options = {}){
     stdio: 'inherit'
   });
 
-  if ( output.error ) console.log(chalk.red.bold(output.error));
+  if ( output.error ) console.log(chalk.red.bold(output.error.toString()));
   else console.log(chalk.green.bold(`${name ? name : 'dependencies'} installed`));
 };

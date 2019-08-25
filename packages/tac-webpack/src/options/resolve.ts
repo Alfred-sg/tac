@@ -20,7 +20,6 @@ export default function apply(ctx: Ctx, opts: Opts) {
 
   const realAlias = {
     '@': src,
-    ...ctx.helpers.dirs(src),
     ...alias,
   }
   Object.keys(realAlias).map(key => {

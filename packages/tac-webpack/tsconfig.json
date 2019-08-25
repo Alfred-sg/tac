@@ -19,6 +19,7 @@
     "experimentalDecorators": true,
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     // "esModuleInterop": true,
   },
   "include": [
