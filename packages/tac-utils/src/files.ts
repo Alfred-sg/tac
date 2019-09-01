@@ -7,7 +7,7 @@ import { resolve,  } from "path";
  * @param {RegExp} pattern 匹配的正则
  * @return {object} 文件映射
  */
-export function files(path: string, pattern = /\.(js|tsx?)$/){
+export default function files(path: string, pattern = /\.(js|tsx?)$/){
   const result: { [propName: string]: any } = {};
 
   const fsList = readdirSync(path);

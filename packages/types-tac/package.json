@@ -1,0 +1,16 @@
+{
+  "name": "@types/tac",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "type": "index",
+  "author": "alfred",
+  "license": "MIT",
+  "dependencies": {
+    "webpack-chain": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "tslib": "^1.10.0"
+  }
+}

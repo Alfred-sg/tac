@@ -7,9 +7,9 @@ import * as through from 'through2';
 import * as chokidar from 'chokidar';
 
 interface TransformOptions {
-  content?: any,
-  path?: string,
-  pkg?: {
+  content: string,
+  path: string,
+  pkg: {
     tactools?: PkgTactools
   },
 }
@@ -26,6 +26,10 @@ interface BuildOptions {
   watch?: boolean,
 }
 
+/**
+ * babel 配置
+ * @param opts 选项
+ */
 function getBabelConfig(opts: PkgTactools = {}) {
   return {
     presets: [
@@ -37,15 +41,18 @@ function getBabelConfig(opts: PkgTactools = {}) {
   }
 }
 
-function transform(opts: TransformOptions = {}) {
-  const { content, path, pkg = {} } = opts;
-  const { tactools } = pkg;
+/**
+ * babel 编译
+ * @param opts 编译内容、路径、选项
+ */
+function transform(opts: TransformOptions) {
+  const { content, path, pkg: { tactools } } = opts;
 
   const babelConfig = getBabelConfig(tactools);
   const { code } = babel.transform(content, {
     ...babelConfig,
     filename: path,
-  });
+  }) || { code: '' };
   
   return code;
 }
@@ -53,25 +60,25 @@ function transform(opts: TransformOptions = {}) {
 export default function build(opts: BuildOptions = {}){
   const { cwd = process.cwd(), src = 'src', lib = 'lib', watch = false } = opts;
   const pkgPath = join(cwd, 'package.json');
-  const pkg = require(pkgPath);
+  const pkg: object = require(pkgPath);
   const srcDir = join(cwd, src);
   const libDir = join(cwd, lib);
 
   rimraf.sync(join(cwd, libDir));
 
-  function createStream(src){
+  function createStream(src: string){
     return vfs.src([join(src, '**/*')], {
       allowEmpty: true,
       base: srcDir,
-    }).pipe(through.obj((f, env, cb) => {
+    }).pipe(through.obj((f: { contents: string, path: string }, _, cb) => {
       if (['.js', '.ts'].includes(extname(f.path))) {
         f.contents = Buffer.from(
           transform({
             content: f.contents,
             path: f.path,
             pkg,
-          }),
-        );
+          }) || ''
+        ).toString();
         f.path = f.path.replace(extname(f.path), '.js');
       }
       cb(null, f);
@@ -85,7 +92,7 @@ export default function build(opts: BuildOptions = {}){
       const watcher = chokidar.watch(join(cwd, srcDir), {
         ignoreInitial: true,
       });
-      watcher.on('all', (event, fullPath) => {
+      watcher.on('all', (_, fullPath) => {
         if (!existsSync(fullPath)) return;
         if (statSync(fullPath).isFile()) {
           createStream(fullPath);

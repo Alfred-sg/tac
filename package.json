@@ -4,13 +4,5 @@
     "bootstrap": "lerna bootstrap --npm-client=cnpm",
     "changelog": "lerna-changelog",
     "build": "lerna run build --npm-client=cnpm"
-  },
-  "lint-staged": {
-    "*.(t|j)s": [
-      "prettier --trailing-comma all --single-quote --write",
-      "git add"
-    ]
-  },
-  "devDependencies": {
   }
 }

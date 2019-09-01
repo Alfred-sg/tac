@@ -1,3 +1,5 @@
+import { resolve } from "path";
+import { files } from "@tac/utils";
 import { Ctx, Opts } from "../types";
 
 /**
@@ -6,12 +8,12 @@ import { Ctx, Opts } from "../types";
  * @param opts {object} plu 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
-  const { config, src } = ctx;
+  const { config, cwd, src } = ctx;
   const { entry = {} } = opts;
 
   ctx.emit("webpack.entry.start", config);
 
-  const defaultEntry = ctx.helpers.files(src);
+  const defaultEntry = files(resolve(cwd, src));
   for (let key in defaultEntry) {
     config.entry(key).add(defaultEntry[key]);
   }

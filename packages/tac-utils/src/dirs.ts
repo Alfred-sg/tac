@@ -6,7 +6,7 @@ import { resolve  } from "path";
  * @param {string} path 目录名
  * @return {object} 目录映射
  */
-export function dirs(path: string){
+export default function dirs(path: string){
   const result: { [propName: string]: any }  = {};
 
   const dirsList = readdirSync(path);

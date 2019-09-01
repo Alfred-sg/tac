@@ -37,20 +37,63 @@ export interface Opts {
   [key: string]: any 
 }
 
-interface Helpers {
-  files: Function,
-  dirs: Function,
+export interface Argv {
+  _: string[];
+  $0: string;
+
+  /** 
+   * 执行路径 
+   */
+  cwd?: string;
+
+  /** 
+   * src 文件夹名，默认 'src' 
+   */
+  src: string;
+
+  /** 
+   * dist 文件夹名，默认 'dist' 
+   */
+  dist: string;
+
+  /** 
+   * html 文件夹名，默认 'src' 
+   */
+  html: string;
+
+  /** 
+   * assets 文件夹名，默认 'assets' 
+   */
+  asset: string;
+
+  /** 
+   * 临时文件夹名，默认 '.tmp' 
+   */
+  tmpdir: string;
+
+  [argName: string]: any;
 }
 
 export interface Ctx {
-  config: Config,
+  /** 模式，默认 'development'  */
   mode: 'development' | 'none' | 'production',
+  /** 执行路径 */
   cwd: string,
+  /** src 文件夹名，默认 'src' */
   src: string,
+  /** dist 文件夹名，默认 'dist' */
+  dist: string,
+  /** template 文件夹名，默认 'src' */
+  template: string,
+  /** assets 文件夹名，默认 'assets' */
   assets: string,
+  /** 临时文件夹名，默认 '.tmp' */
   tmpdir: string,
-  argv: {[key: string]: any},
-  helpers: Helpers,
+  /** webpack-chain 实例 */
+  config: Config,
+  /** 命令函参数 */
+  argv: Argv,
+  /** 事件机制 */
   emit: Function,
 }
 

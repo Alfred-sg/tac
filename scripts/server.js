@@ -1,7 +1,7 @@
 const { fork } = require('child_process');
 const { join } = require('path');
 
-const SCRIPT = join(__dirname, '../packages/tac-core/bin/index.js');
+const SCRIPT = join(__dirname, '../packages/tac-cli/bin/index.js');
 
 function startDevServer(opts = {}) {
   const { port = 3001, cwd } = opts;

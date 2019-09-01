@@ -6,6 +6,7 @@ import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import * as CopyWebpackPlugin from "copy-webpack-plugin";
 import * as Webpackbar from "webpackbar";
 import * as FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin";
+import { files } from "@tac/utils";
 import { Ctx, Opts } from "../types";
 
 /**
@@ -14,12 +15,10 @@ import { Ctx, Opts } from "../types";
  * @param opts {object} plu 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
-  const { config, mode = 'development', src, cwd, assets } = ctx;
-  const { folders, template, common = 'common', dist = 'dist', 
+  const { config, mode = 'development', cwd, template, assets } = ctx;
+  const { folders, common = 'common', dist = 'dist', 
     enableMiniCssExtract = true, plugins } = opts;
-  const htmls = ctx.helpers.files(
-    template ? path.resolve(src, template) : src, /\.html$|\.ejs$/
-  );
+  const htmls = files(path.resolve(cwd, template), /\.html$|\.ejs$/);
 
   ctx.emit("webpack.plugins.start", config);
 

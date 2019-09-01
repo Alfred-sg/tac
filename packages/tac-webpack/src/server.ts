@@ -4,7 +4,8 @@ import openBrowser from 'react-dev-utils/openBrowser';
 import chalk from "chalk";
 import * as clipboardy from "clipboardy";
 import { choosePort, prepareUrls } from 'react-dev-utils/WebpackDevServerUtils';
-import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
+// import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
+// import { Context } from "@tac/types";
 import { Ctx, DevServer, Opts, Stats } from "./types";
 import config from "./chain";
 
@@ -39,7 +40,7 @@ export default function server(ctx: Ctx, opts: Opts) {
       (beforeMiddlewares || []).forEach(middleware => {
         app.use(middleware);
       });
-      app.use(errorOverlayMiddleware());
+      // app.use(errorOverlayMiddleware());
     },
     after(app) {
       (afterMiddlewares || []).forEach(middleware => {
@@ -52,6 +53,7 @@ export default function server(ctx: Ctx, opts: Opts) {
 
   choosePort(host, port).then((realPort: number) => {
     compiler.hooks.done.tap('plutarch dev', (stats: Stats) => {
+      console.log(stats)
       if (stats.hasErrors()) {
         // make sound
         // ref: https://github.com/JannesMeyer/system-bell-webpack-plugin/blob/bb35caf/SystemBellPlugin.js#L14

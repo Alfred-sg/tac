@@ -11,7 +11,25 @@ import applyResolve from "./options/resolve";
 import applyWatch from "./options/watch";
 import { Ctx, Opts } from "./types";
 
+const DefaultCtx = {
+  mode: 'development',
+  src: 'src',
+  dist: 'dist',
+  template: 'src',
+  assets: 'assets',
+  tmpdir: '.tmp'
+}
+
+/**
+ * 使用 webpack-chain 生成 webpack 配置
+ * @param ctx 上下文
+ * @param opts 选项
+ */
 export default function chain(ctx: Ctx, opts: Opts): Chain {
+  Object.keys(DefaultCtx).map(key => {
+    if (!ctx[key]) ctx[key] = DefaultCtx[key];
+  });
+
   ctx.config = new Chain();
 
   ctx.emit("webpack.start", opts);
