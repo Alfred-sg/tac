@@ -2,53 +2,49 @@ import { Ctx, Opts } from "../../types";
 
 /**
  * ts 加载器
- * @param ctx {object} plu 上下文
- * @param opts {object} plu 选项 
+ * @param ctx {object} tac 上下文
+ * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
   const { babel = {}, ts = {}, eslint } = opts;
   const { presets = [], ...babelOptions } = babel;
-  const babelPresetPluOptions = babelOptions['babel-preset-plu'];
-  delete babelOptions['babel-preset-plu'];
+  const babelPresetTacOptions = babelOptions['babel-preset-tac'] || {};
+  delete babelOptions['babel-preset-tac'];
 
   ctx.emit("webpack.loaders.ts.start", config);
 
   const tsloader = config.module.rule('ts')
     .test(/\.tsx?$/)
-      .oneOf('babel')
-        .use('babel')
-          .loader(require.resolve('babel-loader'))
-          .options({
-            babelrc: false,
-            presets: [
-              [
-                require.resolve('babel-preset-plu'), {
-                  isBrowser: true,
-                  isTS: true,
-                  transformRuntime: true,
-                  ...babelPresetPluOptions
-                }
-              ],
-              ...presets
+      .use('babel')
+        .loader(require.resolve('babel-loader'))
+        .options({
+          babelrc: false,
+          presets: [
+            [
+              require.resolve('@tac/babel-preset-tac'), {
+                isBrowser: true,
+                isTS: true,
+                transformRuntime: true,
+                ...babelPresetTacOptions,
+              }
             ],
-            exclude: [/node_modules/],
-            ...babelOptions
-          })
-          .end()
+            ...presets
+          ],
+          exclude: [/node_modules/],
+          ...babelOptions
+        })
         .end()
-      .oneOf('ts')
-        .use('ts')
-          .loader(require.resolve('ts-loader'))
-          .options({
-            transpileOnly: true,
-            ...ts
-          })
-          .end()
+      .use('ts')
+        .loader(require.resolve('ts-loader'))
+        .options({
+          transpileOnly: true,
+          ...ts
+        })
         .end()
 
   if ( eslint ) {
-    tsloader.oneOf('eslint')
+    tsloader
       .use('eslint')
         .loader(require.resolve('eslint-loader'))
         .options(typeof eslint === 'object' ? eslint : {});

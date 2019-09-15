@@ -5,7 +5,7 @@ export default [
   {
     path: "/app/products/list",
     component: dynamic({
-      loader: () => import("pages/product/list")
+      loader: () => import("@/pages/product/list")
     }),
     title: "产品列表",
     icon: "appstore"

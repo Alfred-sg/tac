@@ -1,12 +1,11 @@
 import * as webpack from "webpack";
 import * as WebpackDevServer from 'webpack-dev-server';
-import openBrowser from 'react-dev-utils/openBrowser';
+import openBrowser = require('react-dev-utils/openBrowser');
 import chalk from "chalk";
 import * as clipboardy from "clipboardy";
 import { choosePort, prepareUrls } from 'react-dev-utils/WebpackDevServerUtils';
-// import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
-// import { Context } from "@tac/types";
-import { Ctx, DevServer, Opts, Stats } from "./types";
+import errorOverlayMiddleware = require("react-dev-utils/errorOverlayMiddleware");
+import { Ctx, DevServer, Opts } from "./types";
 import config from "./chain";
 
 /**
@@ -27,11 +26,12 @@ export default function server(ctx: Ctx, opts: Opts) {
 
   // 开发服务器
   const server = new WebpackDevServer(compiler, {
-    noInfo: true,
+    noInfo: true,// bundle 模块打包信息将被隐藏，错误和警告仍会显示
+    quiet: true,// 错误或警告将被隐藏，启动信息仍会显示
+    clientLogLevel: "error",
     inline: true,// 处理实时重载的 js 脚本以内联模式插入到页面中
     hot: true,// 模块热替换
     hotOnly: true,// 热替换时，编译失败时是否禁止刷新页面
-    quiet: true,
     headers: {
       'access-control-allow-origin': '*',
     },
@@ -40,7 +40,7 @@ export default function server(ctx: Ctx, opts: Opts) {
       (beforeMiddlewares || []).forEach(middleware => {
         app.use(middleware);
       });
-      // app.use(errorOverlayMiddleware());
+      app.use(errorOverlayMiddleware());
     },
     after(app) {
       (afterMiddlewares || []).forEach(middleware => {
@@ -52,9 +52,12 @@ export default function server(ctx: Ctx, opts: Opts) {
   let isFirstCompile = true;
 
   choosePort(host, port).then((realPort: number) => {
-    compiler.hooks.done.tap('plutarch dev', (stats: Stats) => {
-      console.log(stats)
+    compiler.hooks.done.tap('tac dev', (stats: webpack.Stats) => {
       if (stats.hasErrors()) {
+        console.log(stats.toString({
+          colors: true,
+        }));
+
         // make sound
         // ref: https://github.com/JannesMeyer/system-bell-webpack-plugin/blob/bb35caf/SystemBellPlugin.js#L14
         if (process.env.SYSTEM_BELL !== 'none') {
@@ -70,9 +73,9 @@ export default function server(ctx: Ctx, opts: Opts) {
         let copied;
         try {
           clipboardy.writeSync(urls.localUrlForBrowser);
-          copied = console.log(chalk.dim('(copied to clipboard)'));
+          copied = chalk.dim('(copied to clipboard)');
         } catch (e) {
-          copied = console.log(chalk.red('(copy to clipboard failed)'));
+          copied = chalk.red('(copy to clipboard failed)');
         };
 
         console.log([

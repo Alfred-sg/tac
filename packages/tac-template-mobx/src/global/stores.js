@@ -1,4 +1,4 @@
-const context = require.context("stores", true, /\.js$/);
+const context = require.context("@/stores", true, /\.js$/);
 
 /**
  * 扫描 stores 目录，创建 store

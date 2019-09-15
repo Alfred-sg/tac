@@ -100,3 +100,12 @@ export interface Ctx {
 export interface Stats {
   hasErrors: Function
 }
+
+export interface DevServerOptions {
+  /* 允许访问的主机 host，防止黑客伪造 */
+  allowdhosts?: [string],
+  beforeMiddlewares?: [],
+  afterMiddlewares?: [],
+  /* 响应头 */
+  headers?: {},
+}

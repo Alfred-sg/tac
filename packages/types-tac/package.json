@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "type": "index",
+  "types": "index",
   "author": "alfred",
   "license": "MIT",
   "dependencies": {

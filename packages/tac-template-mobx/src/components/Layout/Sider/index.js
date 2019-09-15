@@ -2,8 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { matchPath, withRouter, Link } from "react-router-dom";
 import { Menu, Icon, Layout } from "antd";
-import configs from "configs";
-import travser from "utils/travser";
+import travser from "@/utils/travser";
 import styles from "./styles/index.less";
 
 /**
@@ -86,7 +85,7 @@ class Sider extends Component {
         <div className={styles.pluLogo}>
           <Link to="/">
             {/* <img alt='logo' src="../../../imgs/logo.svg" /> */}
-            {!collapsed && <div className={styles.pluTitle}>{configs.title}</div>}
+            {!collapsed && <div className={styles.pluTitle}>Mobx</div>}
           </Link>
         </div>
 

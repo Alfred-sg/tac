@@ -3,8 +3,8 @@ import { Ctx, Opts } from "../../types";
 
 /**
  * less 加载器
- * @param ctx {object} plu 上下文
- * @param opts {object} plu 选项 
+ * @param ctx {object} tac 上下文
+ * @param opts {object} tac 选项
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
@@ -12,46 +12,41 @@ export default function apply(ctx: Ctx, opts: Opts) {
 
   ctx.emit("webpack.loaders.css.start", config);
 
-  let lessLoader = config.module.rule('css')
+  let cssLoader = config.module.rule('css')
     .test(/\.css$/);
 
   if ( enableMiniCssExtract ) {
-    lessLoader = lessLoader.oneOf('mini-css')
+    cssLoader = cssLoader
       .use('mini-css')
         .loader(loader)
         .end()
-      .end()
   } else {
-    lessLoader = lessLoader.oneOf('style')
+    cssLoader = cssLoader
       .use('style')
         .loader(require.resolve('style-loader'))
         .end()
-      .end()
   }
 
-  lessLoader
-    .oneOf('css')
-      .use('css')
-        .loader(require.resolve('css-loader'))
-        .options({
-          ...css,
-          ...(enableCssModules ? {
-            modules: true,
-            localIdentName: '[local]-[hash:base64:8]'
-          } : {}),
-          importLoaders: 2
-        })
-        .end()
+  cssLoader
+    .use('css')
+      .loader(require.resolve('css-loader'))
+      .options({
+        ...css,
+        ...(enableCssModules ? {
+          modules: true,
+          localIdentName: '[local]-[hash:base64:8]'
+        } : {}),
+        importLoaders: 2
+      })
       .end()
-    .oneOf('postcss')
-      .use('postcss')
-        .loader(require.resolve('postcss-loader'))
-        .options({
-          ident: 'postcss',
-          plugins: [
-            require('autoprefixer')("last 100 versions")
-          ]
-        });
+    .use('postcss')
+      .loader(require.resolve('postcss-loader'))
+      .options({
+        ident: 'postcss',
+        plugins: [
+          require('autoprefixer')("last 100 versions")
+        ]
+      });
 
   ctx.emit("webpack.loaders.css.end", config);
 }

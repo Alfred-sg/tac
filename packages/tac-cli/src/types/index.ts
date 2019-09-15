@@ -1,4 +1,4 @@
-import yargs from "yargs";
+import * as yargs from "yargs";
 
 export interface RegisterCommandOpts {
   aliases?: string[],

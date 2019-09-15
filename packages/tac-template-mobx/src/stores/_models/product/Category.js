@@ -1,5 +1,5 @@
 import { observable, action, computed, transaction } from "mobx";
-import * as ProductService from 'services/product';
+import * as ProductService from '@/services/product';
 
 export default class Category {
   @observable categories = [];

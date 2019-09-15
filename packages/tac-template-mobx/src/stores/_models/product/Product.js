@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import * as ProductService from 'services/product';
+import * as ProductService from '@/services/product';
 import Category from './Category';
 import Attribute from './Attribute';
 

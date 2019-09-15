@@ -1,3 +1,15 @@
 module.exports = {
-  a: 111
+  babel: {
+    plugins: [
+      [
+        require.resolve('babel-plugin-import'),
+        {
+          "libraryName": "antd",
+          "style": 'css'
+        }
+      ]
+    ],
+  },
+  enableCssModules: false,
+  enableMiniCssExtract: false,
 }

@@ -8,8 +8,8 @@ import applyTs from "./ts";
 
 /**
  * 加载器
- * @param ctx {object} plu 上下文
- * @param opts {object} plu 选项 
+ * @param ctx {object} tac 上下文
+ * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;

@@ -98,7 +98,6 @@ export default class Context extends EventEmitter {
     const name = this.argv._[0];
     if (this.commands.has(name)) {
       this.yargs.showHelp('log');
-      console.log(this.argv);
       this.execCommand(name);
     } else {
       this.yargs.showHelp('log');

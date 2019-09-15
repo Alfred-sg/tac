@@ -13,21 +13,27 @@ export default function build(ctx: Ctx, opts: Opts) {
   const options: webpack.Configuration = config(ctx, opts).toConfig();
   const compiler = webpack(options);
 
-  console.log(chalk.blue('plu-webpack begin to compile'));
+  console.log(chalk.blue('tac-webpack begin to compile'));
 
   ctx.emit('build.start');
   ctx.emit('compile.start');
 
-  compiler.run((err: Error) => {
+  compiler.run((err: Error, stats: webpack.Stats) => {
     rimraf.sync(ctx.tmpdir);
 
+    if (stats.hasErrors()) {
+      console.log(stats.toString({
+        colors: true,
+      }));
+    }
+
     if ( err ){
-      console.log(chalk.red('plu-webpack compile failed'));
+      console.log(chalk.red('tac-webpack compile failed'));
       ctx.emit('compile.failed', err);
       return;
     };
 
-    console.log(chalk.blue('plu-webpack compile done'));
+    console.log(chalk.blue('tac-webpack compile done'));
 
     ctx.emit('compile.end');
     ctx.emit('build.end');

@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import * as ProductService from "services/product";
+import * as ProductService from "@/services/product";
 
 export default class Attribute {
   @observable attributes = [];

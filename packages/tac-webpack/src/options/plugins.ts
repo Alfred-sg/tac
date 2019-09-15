@@ -11,8 +11,8 @@ import { Ctx, Opts } from "../types";
 
 /**
  * 插件
- * @param ctx {object} plu 上下文
- * @param opts {object} plu 选项 
+ * @param ctx {object} tac 上下文
+ * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config, mode = 'development', cwd, template, assets } = ctx;
@@ -66,7 +66,7 @@ export default function apply(ctx: Ctx, opts: Opts) {
     config.plugin('CopyWebpackPlugin')
       .use(CopyWebpackPlugin, [{      
         from: assets,
-        to: path.resolve(cwd, dist)
+        to: path.resolve(cwd, dist),
       }]);
   }
 
