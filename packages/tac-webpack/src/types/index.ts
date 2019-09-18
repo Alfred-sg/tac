@@ -1,5 +1,6 @@
 import * as Config from "webpack-chain";
 import { RequestHandler } from "express";
+import { EventEmitter } from 'events';
 
 interface Entry {
   [key: string]: any 
@@ -34,6 +35,13 @@ export interface Opts {
   devtool?: string | boolean,
   uglifyjsOptions?: {[key: string]: any},
   devServer?: DevServer,
+  plugins?: any[],
+  folders?: {
+    html?: string,
+    js?: string,
+    style?: string,
+    img?: string,
+  },
   [key: string]: any 
 }
 
@@ -74,7 +82,7 @@ export interface Argv {
   [argName: string]: any;
 }
 
-export interface Ctx {
+export interface Ctx extends EventEmitter {
   /** 模式，默认 'development'  */
   mode: 'development' | 'none' | 'production',
   /** 执行路径 */
@@ -91,10 +99,8 @@ export interface Ctx {
   tmpdir: string,
   /** webpack-chain 实例 */
   config: Config,
-  /** 命令函参数 */
+  /** 命令行参数 */
   argv: Argv,
-  /** 事件机制 */
-  emit: Function,
 }
 
 export interface Stats {

@@ -7,10 +7,9 @@ import { Ctx, Opts } from "../types";
  * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
-  const { config, cwd, mode = 'development' } = ctx;
-  const { output = {} } = opts;
-  const { dist = 'dist', folders, filename, chunkFilename, 
-    publicPath = '' } = output;
+  const { config, cwd, dist, mode } = ctx;
+  const { folders, output = {} } = opts;
+  const { filename, chunkFilename, publicPath = '' } = output;
 
   ctx.emit("webpack.output.start", config);
 

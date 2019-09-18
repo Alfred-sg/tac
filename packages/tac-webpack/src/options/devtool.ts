@@ -6,7 +6,7 @@ import { Ctx, Opts } from "../types";
  * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
-  const { config, mode = 'development' } = ctx;
+  const { config, mode } = ctx;
   const { devtool } = opts;
 
   ctx.emit("webpack.devtool.start", config);

@@ -1,4 +1,5 @@
 import * as Chain from "webpack-chain";
+import { merge } from "lodash";
 import applyContext from "./options/context";
 import applyDevtool from "./options/devtool";
 import applyEntry from "./options/entry";
@@ -18,7 +19,46 @@ const DefaultCtx = {
   template: 'src',
   assets: 'assets',
   tmpdir: '.tmp'
-}
+};
+
+/**
+ * 填充默认值
+ * @param ctx 上下文
+ */
+function normalizeCtx(ctx: Ctx): void {
+  merge(ctx, DefaultCtx);
+
+  ctx.config = new Chain();
+};
+
+const DefaultOpts = {
+  entry: {},
+  output: {
+    publicPath: '',
+  },
+  resolve: {
+    extensions: ['.web.js', '.js', '.jsx', '.ts', '.tsx', '.json'],
+    alias: {}
+  },
+  common: 'common', 
+  babel: {},
+  ts: {},
+  css: {},
+  img: {},
+  font: {},
+  enableMiniCssExtract: true,
+  enableCssModules: true,
+  compress: true, 
+  uglifyjsOptions: {}, 
+};
+
+/**
+ * 填充默认值
+ * @param opts 选项
+ */
+function normalizeOpts(opts: Opts): void {
+  merge(opts, DefaultOpts);
+};
 
 /**
  * 使用 webpack-chain 生成 webpack 配置
@@ -26,11 +66,8 @@ const DefaultCtx = {
  * @param opts 选项
  */
 export default function chain(ctx: Ctx, opts: Opts): Chain {
-  Object.keys(DefaultCtx).map(key => {
-    if (!ctx[key]) ctx[key] = DefaultCtx[key];
-  });
-
-  ctx.config = new Chain();
+  normalizeCtx(ctx);
+  normalizeOpts(opts);
 
   ctx.emit("webpack.start", opts);
 

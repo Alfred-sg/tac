@@ -8,7 +8,7 @@ import { Ctx, Opts } from "../../types";
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
-  const { enableMiniCssExtract = true, css = {}, enableCssModules = false } = opts;
+  const { enableMiniCssExtract = true, css = {}, enableCssModules = true } = opts;
 
   ctx.emit("webpack.loaders.less.start", config);
 

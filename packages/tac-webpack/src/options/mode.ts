@@ -5,7 +5,7 @@ import { Ctx } from "../types";
  * @param ctx {object} tac 上下文
  */
 export default function apply(ctx: Ctx) {
-  const { config, mode = 'development' } = ctx;
+  const { config, mode } = ctx;
 
   ctx.emit("webpack.mode.start", config);
 
