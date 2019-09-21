@@ -37,5 +37,5 @@ export default function build(ctx: Ctx, opts: Opts) {
 
     ctx.emit('compile.end');
     ctx.emit('build.end');
-  })
+  });
 }

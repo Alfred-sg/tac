@@ -1,5 +1,5 @@
 import * as webpack from "webpack";
-import * as WebpackDevServer from 'webpack-dev-server';
+import * as WebpackDevServer from "webpack-dev-server";
 import openBrowser = require('react-dev-utils/openBrowser');
 import chalk from "chalk";
 import * as clipboardy from "clipboardy";

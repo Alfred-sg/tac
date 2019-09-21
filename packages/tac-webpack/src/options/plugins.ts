@@ -19,8 +19,6 @@ export default function apply(ctx: Ctx, opts: Opts) {
   const { folders, common = 'common', enableMiniCssExtract = true, plugins } = opts;
   const htmls = files(path.resolve(cwd, template), /\.html$|\.ejs$/);
 
-  ctx.emit("webpack.plugins.start", config);
-
   config.plugin('DefinePlugin')
     .use(Webpack.DefinePlugin, [{
       'process.env.NODE_ENV': mode === 'production' ? '"production"' : '"development"' 
@@ -76,7 +74,5 @@ export default function apply(ctx: Ctx, opts: Opts) {
     config.merge({ 
       plugins
     });
-  }
-
-  ctx.emit("webpack.plugins.end", config);
+  };
 }

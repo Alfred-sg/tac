@@ -12,8 +12,6 @@ export default function apply(ctx: Ctx, opts: Opts) {
   const { extensions = ['.web.js', '.js', '.jsx', '.ts', '.tsx', '.json'],
     alias = {} } = resolve;
 
-  ctx.emit("webpack.resolve.start", config);
-
   extensions.forEach(key => {
     config.resolve.extensions.add(key);
   })
@@ -21,10 +19,9 @@ export default function apply(ctx: Ctx, opts: Opts) {
   const realAlias = {
     '@': src,
     ...alias,
-  }
+  };
+  
   Object.keys(realAlias).map(key => {
     config.resolve.alias.set(key, path.resolve(cwd, realAlias[key]));
-  })
-
-  ctx.emit("webpack.resolve.end", config);
+  });
 }

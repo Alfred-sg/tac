@@ -1,5 +1,5 @@
-import { loader } from 'mini-css-extract-plugin';
 import { Ctx, Opts } from "../../types";
+import getCssLoader from "./common/getCssLoader";
 
 /**
  * less 加载器
@@ -8,48 +8,25 @@ import { Ctx, Opts } from "../../types";
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
-  const { enableMiniCssExtract = true, css = {}, enableCssModules = true } = opts;
+  const { enableMiniCssExtract, css, enableCssModules } = opts;
 
-  ctx.emit("webpack.loaders.less.start", config);
+  getCssLoader(config, {
+    name: "less:src",
+    test: /\.less$/,
+    include: /src/,
+    enableMiniCssExtract,
+    enableCssModules,
+    css,
+  }).use('less')
+    .loader(require.resolve('less-loader'));
 
-  let lessLoader = config.module.rule('less')
-    .test(/\.less$/);
-
-  if ( enableMiniCssExtract ) {
-    lessLoader = lessLoader
-      .use('mini-css')
-        .loader(loader)
-        .end()
-  } else {
-    lessLoader = lessLoader
-      .use('style')
-        .loader(require.resolve('style-loader'))
-        .end()
-  }
-
-  lessLoader
-    .use('css')
-      .loader(require.resolve('css-loader'))
-      .options({
-        ...css,
-        ...(enableCssModules ? {
-          modules: true,
-          localIdentName: '[local]-[hash:base64:8]'
-        } : {}),
-        importLoaders: 2
-      })
-      .end()
-    .use('postcss')
-      .loader(require.resolve('postcss-loader'))
-      .options({
-        ident: 'postcss',
-        plugins: [
-          require('autoprefixer')("last 100 versions")
-        ]
-      })
-      .end()
-    .use('less')
-      .loader(require.resolve('less-loader'));
-
-  ctx.emit("webpack.loaders.less.end", config);
+  getCssLoader(config, {
+    name: "less:node_modules",
+    test: /\.less$/,
+    include: /node_modules/,
+    enableMiniCssExtract,
+    enableCssModules,
+    css,
+  }).use('less')
+    .loader(require.resolve('less-loader'));
 }

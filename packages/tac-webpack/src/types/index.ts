@@ -1,40 +1,20 @@
+import * as webpack from "webpack";
+import * as WebpackDevServer from 'webpack-dev-server';
 import * as Config from "webpack-chain";
 import { RequestHandler } from "express";
 import { EventEmitter } from 'events';
-
-interface Entry {
-  [key: string]: any 
-}
-
-interface Output {
-  path?: string,
-  filename?: string,
-  chunkFilename?: string,
-  publicPath?: string,
-  [key: string]: any 
-}
-
-interface Resolve {
-  extensions?: Array<string>,
-  alias?: {[key: string]: any},
-  [key: string]: any 
-}
-
-export interface DevServer {
-  https?: string,
-  host?: string,
-  port?: number,
+  
+export interface DevServer extends WebpackDevServer.Configuration {
   beforeMiddlewares?: Array<RequestHandler>,
   afterMiddlewares?: Array<RequestHandler>,
 }
 
-export interface Opts {
-  entry?: Entry,
-  output?: Output,
-  resolve?: Resolve,
-  devtool?: string | boolean,
-  uglifyjsOptions?: {[key: string]: any},
+export interface Opts extends webpack.Configuration {
+  entry?: {
+    [name: string]: string;
+  },
   devServer?: DevServer,
+  uglifyjsOptions?: {[key: string]: any},
   plugins?: any[],
   folders?: {
     html?: string,
@@ -101,17 +81,4 @@ export interface Ctx extends EventEmitter {
   config: Config,
   /** 命令行参数 */
   argv: Argv,
-}
-
-export interface Stats {
-  hasErrors: Function
-}
-
-export interface DevServerOptions {
-  /* 允许访问的主机 host，防止黑客伪造 */
-  allowdhosts?: [string],
-  beforeMiddlewares?: [],
-  afterMiddlewares?: [],
-  /* 响应头 */
-  headers?: {},
-}
+};

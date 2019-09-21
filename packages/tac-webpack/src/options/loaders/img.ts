@@ -9,16 +9,12 @@ export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
   const { folders, img = {} } = opts;
 
-  ctx.emit("webpack.loaders.img.start", config);
-
   config.module.rule('img')
     .test(/\.(png|jpg|gif)\?*.*$/)
       .use('img')
         .loader(require.resolve('url-loader'))
         .options({
           name: folders && folders.img ? `${folders.img}/[hash].[ext]` : '[hash].[ext]',
-          ...img
+          ...img,
         });
-
-  ctx.emit("webpack.loaders.img.end", config);
 }

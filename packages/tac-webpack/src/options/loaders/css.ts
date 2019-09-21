@@ -1,5 +1,5 @@
-import { loader } from 'mini-css-extract-plugin';
 import { Ctx, Opts } from "../../types";
+import getCssLoader from "./common/getCssLoader";
 
 /**
  * less 加载器
@@ -8,45 +8,23 @@ import { Ctx, Opts } from "../../types";
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
-  const { enableMiniCssExtract = true, css = {}, enableCssModules = true } = opts;
+  const { enableMiniCssExtract, css, enableCssModules } = opts;
 
-  ctx.emit("webpack.loaders.css.start", config);
+  getCssLoader(config, {
+    name: "css:src",
+    test: /\.css$/,
+    include: /src/,
+    enableMiniCssExtract,
+    enableCssModules,
+    css,
+  });
 
-  let cssLoader = config.module.rule('css')
-    .test(/\.css$/);
-
-  if ( enableMiniCssExtract ) {
-    cssLoader = cssLoader
-      .use('mini-css')
-        .loader(loader)
-        .end()
-  } else {
-    cssLoader = cssLoader
-      .use('style')
-        .loader(require.resolve('style-loader'))
-        .end()
-  }
-
-  cssLoader
-    .use('css')
-      .loader(require.resolve('css-loader'))
-      .options({
-        ...css,
-        ...(enableCssModules ? {
-          modules: true,
-          localIdentName: '[local]-[hash:base64:8]'
-        } : {}),
-        importLoaders: 2
-      })
-      .end()
-    .use('postcss')
-      .loader(require.resolve('postcss-loader'))
-      .options({
-        ident: 'postcss',
-        plugins: [
-          require('autoprefixer')("last 100 versions")
-        ]
-      });
-
-  ctx.emit("webpack.loaders.css.end", config);
-}
+  getCssLoader(config, {
+    name: "css:node_modules",
+    test: /\.css$/,
+    include: /node_modules/,
+    enableMiniCssExtract,
+    enableCssModules: false,
+    css,
+  });
+};

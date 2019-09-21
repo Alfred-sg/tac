@@ -7,9 +7,5 @@ import { Ctx } from "../types";
 export default function apply(ctx: Ctx) {
   const { config, cwd } = ctx;
 
-  ctx.emit("webpack.context.start", config);
-
   config.context(cwd);
-
-  ctx.emit("webpack.context.end", config);
 }

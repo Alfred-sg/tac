@@ -7,9 +7,5 @@ import { Ctx } from "../types";
 export default function apply(ctx: Ctx) {
   const { config, mode } = ctx;
 
-  ctx.emit("webpack.mode.start", config);
-
   config.mode(mode);
-
-  ctx.emit("webpack.mode.end", config);
 }

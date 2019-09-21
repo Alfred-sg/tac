@@ -11,8 +11,6 @@ export default function apply(ctx: Ctx, opts: Opts) {
   const { folders, output = {} } = opts;
   const { filename, chunkFilename, publicPath = '' } = output;
 
-  ctx.emit("webpack.output.start", config);
-
   config
     .output
     .path(path.resolve(cwd, `./${dist}`))
@@ -31,6 +29,4 @@ export default function apply(ctx: Ctx, opts: Opts) {
           '[name].js'
     )
     .publicPath(mode === 'production' ? publicPath || './' : '/');
-
-  ctx.emit("webpack.output.end", config);
 }

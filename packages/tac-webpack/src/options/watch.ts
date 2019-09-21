@@ -8,9 +8,5 @@ import { Ctx } from "../types";
 export default function apply(ctx: Ctx) {
   const { config, mode } = ctx;
 
-  ctx.emit("webpack.watch.start", config);
-
   config.watch(mode !== 'production' ? true : false);
-
-  ctx.emit("webpack.watch.end", config);
 }
