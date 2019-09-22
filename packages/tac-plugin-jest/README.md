@@ -1,4 +1,4 @@
-## babel-preset-tac
+## tac-plugin-jest
 
 ### usage
 

@@ -7,9 +7,16 @@ import { Ctx, Opts } from "../types";
  * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
-  const { config, cwd, dist, mode } = ctx;
-  const { folders, output = {} } = opts;
-  const { filename, chunkFilename, publicPath = '' } = output;
+  const { config, cwd } = ctx;
+  const { mode = 'development', folders, output, paths } = opts;
+  if (!output) return;
+
+  const dist = paths && paths.dist ? paths.dist : "dist";
+  const { 
+    filename, 
+    chunkFilename, 
+    publicPath = '', 
+  } = output;
 
   config
     .output

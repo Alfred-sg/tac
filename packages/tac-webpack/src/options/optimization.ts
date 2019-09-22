@@ -8,9 +8,17 @@ import { Ctx, Opts } from "../types";
  * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
-  const { config, mode } = ctx;
-  const { compress = true, uglifyjsOptions = {}, folders, common = 'common', 
-    splitChunksOptions = {} } = opts;
+  const { config } = ctx;
+  const { 
+    mode = 'development', 
+    compress = true, 
+    terserOptions = {}, 
+    folders, 
+    common = 'common', 
+    splitChunks = {},
+    styleCacheGroup = {},
+    jsCacheGroup = {},
+  } = opts;
 
   if ( mode === 'production' && compress ) {
     // uglifyjs 不支持压缩 es6 代码，且不再维护
@@ -58,7 +66,7 @@ export default function apply(ctx: Ctx, opts: Opts) {
           // Enable file caching
           cache: true,
           sourceMap: false,
-          ...uglifyjsOptions
+          ...terserOptions,
         }
       ]
     );
@@ -82,7 +90,7 @@ export default function apply(ctx: Ctx, opts: Opts) {
         chunks: 'all',
         minChunks: 2,
         priority: 20,
-        ...splitChunksOptions
+        ...styleCacheGroup,
       },
       js: {
         name: folders && folders.js ? `${folders.js}/${common}` : common,
@@ -90,8 +98,9 @@ export default function apply(ctx: Ctx, opts: Opts) {
         chunks: 'all',
         minChunks: 2,
         priority: -20,
-        ...splitChunksOptions
+        ...jsCacheGroup,
       }
-    }
+    },
+    ...splitChunks
   });
 }

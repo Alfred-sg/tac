@@ -1,5 +1,4 @@
 import * as Chain from "webpack-chain";
-import { merge } from "lodash";
 import applyContext from "./options/context";
 import applyDevtool from "./options/devtool";
 import applyEntry from "./options/entry";
@@ -10,15 +9,11 @@ import applyOutput from "./options/output";
 import applyPlugins from "./options/plugins";
 import applyResolve from "./options/resolve";
 import applyWatch from "./options/watch";
+import { normalize } from "./utils";
 import { Ctx, Opts } from "./types";
 
 const DefaultCtx = {
-  mode: 'development',
-  src: 'src',
-  dist: 'dist',
-  template: 'src',
-  assets: 'assets',
-  tmpdir: '.tmp'
+  cwd: process.cwd(),
 };
 
 /**
@@ -26,12 +21,20 @@ const DefaultCtx = {
  * @param ctx 上下文
  */
 function normalizeCtx(ctx: Ctx): void {
-  merge(ctx, DefaultCtx);
+  normalize(ctx, DefaultCtx);
 
   ctx.config = new Chain();
 };
 
 const DefaultOpts = {
+  mode: 'development',
+  paths: {
+    src: 'src',
+    dist: 'dist',
+    template: 'src',
+    assets: 'assets',
+    tmpdir: '.tmp',
+  },
   entry: {},
   output: {
     publicPath: '',
@@ -49,7 +52,7 @@ const DefaultOpts = {
   enableMiniCssExtract: true,
   enableCssModules: true,
   compress: true, 
-  uglifyjsOptions: {}, 
+  terserOptions: {}, 
 };
 
 /**
@@ -57,7 +60,7 @@ const DefaultOpts = {
  * @param opts 选项
  */
 function normalizeOpts(opts: Opts): void {
-  merge(opts, DefaultOpts);
+  normalize(opts, DefaultOpts);
 };
 
 /**
@@ -71,14 +74,14 @@ export default function chain(ctx: Ctx, opts: Opts): Chain {
 
   ctx.emit("webpack.start", opts);
 
-  applyMode(ctx);
+  applyMode(ctx, opts);
   applyDevtool(ctx, opts);
   applyContext(ctx);
   applyEntry(ctx, opts);
   applyOutput(ctx, opts);
   applyResolve(ctx, opts);
   applyDevtool(ctx, opts);
-  applyWatch(ctx);
+  applyWatch(ctx, opts);
   applyLoaders(ctx, opts);
   applyPlugins(ctx, opts);
   applyOptimization(ctx, opts);

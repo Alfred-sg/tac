@@ -1,0 +1,38 @@
+{
+  "name": "@tac/plugin-jest",
+  "version": "0.0.1",
+  "description": "jest plugin for tac",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "rimraf lib && tsc --outDir lib"
+  },
+  "keywords": [
+    "jest"
+  ],
+  "author": "alfred.qiu",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "@tac/babel-preset-tac": "^0.0.1",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jest": "^24.9.0",
+    "jest-pnp-resolver": "^1.2.1",
+    "jsdom": "^15.1.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "ts-jest": "^24.1.0"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.18",
+    "@types/jsdom": "^12.2.4",
+    "@types/node": "^12.7.5",
+    "rimraf": "^3.0.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.6.3"
+  }
+}

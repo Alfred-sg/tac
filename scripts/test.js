@@ -3,11 +3,11 @@ const { join } = require('path');
 
 const SCRIPT = join(__dirname, '../packages/tac-cli/bin/index.js');
 
-function startDevServer(opts = {}) {
-  const { port = 3001, cwd } = opts;
+function build(opts = {}) {
+  const { cwd } = opts;
   return new Promise(resolve => {
-    console.log(`Start dev server for ${cwd}`);
-    const child = fork(SCRIPT, ['server', '--port', port, '--cwd', cwd], {
+    console.log(`test for ${cwd}`);
+    const child = fork(SCRIPT, ['test', '--cwd', cwd], {
       env: {
         ...process.env
       },
@@ -21,20 +21,20 @@ function startDevServer(opts = {}) {
 }
 
 function start() {
-  const devServers = [
-    [12341, '../packages/tac-template-mobx']
+  const builds = [
+    ['../packages/tac-template-mobx']
   ];
 
   return Promise.all(
-    devServers.map(([port, cwd]) => {
-      return startDevServer({ port, cwd: join(__dirname, cwd) });
+    builds.map(([cwd]) => {
+      return build({ cwd: join(__dirname, cwd) });
     }),
   );
 }
 
 start()
 .then(() => {
-  console.log('All dev servers are started.');
+  console.log('All tests are started.');
 })
 .catch(e => {
   console.log(e);

@@ -4,5 +4,9 @@
     "bootstrap": "lerna bootstrap --npm-client=cnpm",
     "changelog": "lerna-changelog",
     "build": "lerna run build --npm-client=cnpm"
+  },
+  "name": "tac",
+  "devDependencies": {
+    "lerna": "^3.16.4"
   }
 }

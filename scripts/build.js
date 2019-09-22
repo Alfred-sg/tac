@@ -9,9 +9,7 @@ function build(opts = {}) {
     console.log(`build for ${cwd}`);
     const child = fork(SCRIPT, ['build', '--cwd', cwd], {
       env: {
-        ...process.env,
-        BROWSER: 'none',
-        PROGRESS: 'none'
+        ...process.env
       },
     });
     child.on('message', args => {
@@ -36,7 +34,7 @@ function start() {
 
 start()
 .then(() => {
-  console.log('All dev servers are started.');
+  console.log('All builds are started.');
 })
 .catch(e => {
   console.log(e);

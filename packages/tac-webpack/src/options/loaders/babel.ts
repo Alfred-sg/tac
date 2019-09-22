@@ -8,7 +8,7 @@ import getBabelOptions from "./common/getBabelOptions";
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
-  const { babel, eslint } = opts;
+  const { babel = {}, eslint } = opts;
   const babelOptions = getBabelOptions(babel);
 
   const jsloader = config.module.rule('js')

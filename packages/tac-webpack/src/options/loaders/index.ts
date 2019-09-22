@@ -15,8 +15,6 @@ export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
   const { rules, loaders } = opts;
 
-  ctx.emit("webpack.loaders.start", config);
-
   applyBabel(ctx, opts);
   applyCss(ctx, opts);
   applyFont(ctx, opts);
@@ -29,6 +27,4 @@ export default function apply(ctx: Ctx, opts: Opts) {
       loaders: rules || loaders
     });
   }
-
-  ctx.emit("webpack.loaders.end", config);
 }

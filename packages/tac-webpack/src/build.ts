@@ -1,8 +1,12 @@
 import * as webpack from "webpack";
 import chalk from "chalk";
-import * as rimraf from "rimraf";
-import { Ctx, Opts } from "./types";
 import config from "./chain";
+import { normalize } from "./utils";
+import { Ctx, Opts } from "./types";
+
+const DefaultOpts = {
+  mode: "production",
+};
 
 /**
  * 打包
@@ -10,7 +14,8 @@ import config from "./chain";
  * @param opts 选项
  */
 export default function build(ctx: Ctx, opts: Opts) {
-  const options: webpack.Configuration = config(ctx, opts).toConfig();
+  const fianlOpts: Opts = normalize(opts, DefaultOpts);
+  const options: webpack.Configuration = config(ctx, fianlOpts).toConfig();
   const compiler = webpack(options);
 
   console.log(chalk.blue('tac-webpack begin to compile'));
@@ -19,8 +24,6 @@ export default function build(ctx: Ctx, opts: Opts) {
   ctx.emit('compile.start');
 
   compiler.run((err: Error, stats: webpack.Stats) => {
-    rimraf.sync(ctx.tmpdir);
-
     if (stats.hasErrors()) {
       console.log(stats.toString({
         colors: true,

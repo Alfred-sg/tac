@@ -5,8 +5,12 @@ import chalk from "chalk";
 import * as clipboardy from "clipboardy";
 import { choosePort, prepareUrls } from 'react-dev-utils/WebpackDevServerUtils';
 import errorOverlayMiddleware = require("react-dev-utils/errorOverlayMiddleware");
-import { Ctx, DevServer, Opts } from "./types";
 import config from "./chain";
+import { normalize } from "./utils";
+import { Ctx, Opts } from "./types";
+
+const DefaultOpts = {
+};
 
 /**
  * 启动调试服务器
@@ -14,15 +18,21 @@ import config from "./chain";
  * @param opts 选项
  */
 export default function server(ctx: Ctx, opts: Opts): void {
-  const options: webpack.Configuration = config(ctx, opts).toConfig();
+  const fianlOpts: Opts = normalize(opts, DefaultOpts);
+  const options: webpack.Configuration = config(ctx, fianlOpts).toConfig();
   const compiler = webpack(options);
 
-  const { assets } = ctx;
-  const devServer: DevServer = opts.devServer || {};
-  const { https, host = '0.0.0.0', beforeMiddlewares = [], afterMiddlewares = [],
-    ...devServerOptions } = devServer;
+  // const { paths } = opts;
+  const { devServer = {} } = fianlOpts;
+  const { 
+    https, 
+    host = '0.0.0.0', 
+    beforeMiddlewares = [], 
+    afterMiddlewares = [],
+    ...devServerOptions 
+  } = devServer;
   const protocol = https ? 'https' : 'http';
-  const port = devServer.port || ctx.argv.port || 3001;
+  const port = devServer.port || 3001;
   const urls = prepareUrls(protocol, host, port);
 
   // 开发服务器
@@ -41,7 +51,7 @@ export default function server(ctx: Ctx, opts: Opts): void {
       'access-control-allow-origin': '*',
     },
     host,
-    contentBase: assets,// 静态资源目录
+    // contentBase: assets,// 静态资源目录
     watchContentBase: true,// 监听静态资源变更
     ...devServerOptions,
     before(app) {

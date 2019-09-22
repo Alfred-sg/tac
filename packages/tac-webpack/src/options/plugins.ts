@@ -15,9 +15,19 @@ import { Ctx, Opts } from "../types";
  * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
-  const { config, mode, cwd, dist, template, assets } = ctx;
-  const { folders, common = 'common', enableMiniCssExtract = true, plugins } = opts;
-  const htmls = files(path.resolve(cwd, template), /\.html$|\.ejs$/);
+  const { config, cwd } = ctx;
+  const { 
+    mode = 'development',
+    folders, 
+    common = 'common', 
+    enableMiniCssExtract = true, 
+    plugins,
+    paths,
+  } = opts;
+  const html = paths && paths.html ? paths.html : "src";
+  const dist = paths && paths.dist ? paths.dist : "dist";
+  const assets = paths && paths.assets ? paths.assets : "assets";
+  const htmls = files(path.resolve(cwd, html), /\.html$|\.ejs$/);
 
   config.plugin('DefinePlugin')
     .use(Webpack.DefinePlugin, [{

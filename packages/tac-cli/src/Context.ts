@@ -19,8 +19,6 @@ export default class Context extends EventEmitter {
     $0: string;
     cwd?: string;
   };
-  /** 执行路径 */
-  cwd: string;
   /** 环境变量 */
   env: object;
 
@@ -31,11 +29,15 @@ export default class Context extends EventEmitter {
       .usage("Usage: tac <cmd> [options]")
       .locale("zh_CN");
     this.argv = yargs.argv;
-    this.cwd = this.argv.cwd || realpathSync(process.cwd());
     this.env = process.env;
 
     this.buildin();
   };
+
+  /** 执行路径 */
+  get cwd(){
+    return this.argv.cwd || realpathSync(process.cwd());
+  }
 
   /**
    * 注册内置插件
@@ -43,6 +45,7 @@ export default class Context extends EventEmitter {
   private buildin(){
     this.registerPlugin('server', require('./buildins/server').default);
     this.registerPlugin('build', require('./buildins/build').default);
+    this.registerPlugin('test', require('./buildins/test').default);
   }
 
   /**

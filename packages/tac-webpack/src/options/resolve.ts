@@ -7,17 +7,22 @@ import { Ctx, Opts } from "../types";
  * @param opts {object} tac 选项 
  */
 export default function apply(ctx: Ctx, opts: Opts) {
-  const { config, cwd, src } = ctx;
-  const { resolve = {} } = opts;
-  const { extensions = ['.web.js', '.js', '.jsx', '.ts', '.tsx', '.json'],
-    alias = {} } = resolve;
+  const { config, cwd } = ctx;
+  const { resolve, paths } = opts;
+  if (!resolve) return;
+
+  const src = paths && paths.src ? paths.src : "src";
+  const { 
+    extensions = ['.web.js', '.js', '.jsx', '.ts', '.tsx', '.json'],
+    alias = {}, 
+  } = resolve;
 
   extensions.forEach(key => {
     config.resolve.extensions.add(key);
-  })
+  });
 
   const realAlias = {
-    '@': src,
+    '@': path.resolve(cwd, src),
     ...alias,
   };
   

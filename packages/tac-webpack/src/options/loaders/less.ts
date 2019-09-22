@@ -8,7 +8,11 @@ import getCssLoader from "./common/getCssLoader";
  */
 export default function apply(ctx: Ctx, opts: Opts) {
   const { config } = ctx;
-  const { enableMiniCssExtract, css, enableCssModules } = opts;
+  const { 
+    enableCssModules = true,
+    enableMiniCssExtract = true, 
+    less = {}, 
+  } = opts;
 
   getCssLoader(config, {
     name: "less:src",
@@ -16,7 +20,7 @@ export default function apply(ctx: Ctx, opts: Opts) {
     include: /src/,
     enableMiniCssExtract,
     enableCssModules,
-    css,
+    css: less,
   }).use('less')
     .loader(require.resolve('less-loader'));
 
@@ -26,7 +30,7 @@ export default function apply(ctx: Ctx, opts: Opts) {
     include: /node_modules/,
     enableMiniCssExtract,
     enableCssModules,
-    css,
+    css: less,
   }).use('less')
     .loader(require.resolve('less-loader'));
 }
