@@ -72,7 +72,7 @@ export default function chain(ctx: Ctx, opts: Opts): Chain {
   normalizeCtx(ctx);
   normalizeOpts(opts);
 
-  ctx.emit("webpack.start", opts);
+  if (ctx.emit) ctx.emit("webpack.start", opts);
 
   applyMode(ctx, opts);
   applyDevtool(ctx, opts);
@@ -86,7 +86,7 @@ export default function chain(ctx: Ctx, opts: Opts): Chain {
   applyPlugins(ctx, opts);
   applyOptimization(ctx, opts);
   
-  ctx.emit("webpack.end", ctx.config);
+  if (ctx.emit) ctx.emit("webpack.end", ctx.config);
 
   return ctx.config;
 }

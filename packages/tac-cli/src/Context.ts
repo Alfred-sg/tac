@@ -46,6 +46,7 @@ export default class Context extends EventEmitter {
     this.registerPlugin('server', require('./buildins/server').default);
     this.registerPlugin('build', require('./buildins/build').default);
     this.registerPlugin('test', require('./buildins/test').default);
+    this.registerPlugin('lib', require('./buildins/lib').default);
   }
 
   /**

@@ -2,11 +2,12 @@ import * as webpack from "webpack";
 import * as WebpackDevServer from 'webpack-dev-server';
 import * as Config from "webpack-chain";
 import { RequestHandler } from "express";
-import { EventEmitter } from 'events';
 
-export interface Ctx extends EventEmitter {
+export interface Ctx {
   /** 执行路径 */
   cwd: string,
+  /** 触发事件 */
+  emit?: Function,
   /** webpack-chain 实例 */
   config: Config,
 };

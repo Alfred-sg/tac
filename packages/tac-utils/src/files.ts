@@ -1,4 +1,4 @@
-import { readdirSync, statSync } from "fs";
+import { readdirSync, statSync, existsSync } from "fs";
 import { resolve,  } from "path";
 
 /**
@@ -9,6 +9,7 @@ import { resolve,  } from "path";
  */
 export default function files(path: string, pattern = /\.(js|tsx?)$/){
   const result: { [propName: string]: any } = {};
+  if (!existsSync(path)) return result;
 
   const fsList = readdirSync(path);
   fsList.map(fs => {

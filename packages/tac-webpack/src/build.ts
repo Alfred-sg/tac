@@ -20,8 +20,8 @@ export default function build(ctx: Ctx, opts: Opts) {
 
   console.log(chalk.blue('tac-webpack begin to compile'));
 
-  ctx.emit('build.start');
-  ctx.emit('compile.start');
+  if (ctx.emit) ctx.emit('build.start');
+  if (ctx.emit) ctx.emit('compile.start');
 
   compiler.run((err: Error, stats: webpack.Stats) => {
     if (stats.hasErrors()) {
@@ -32,13 +32,13 @@ export default function build(ctx: Ctx, opts: Opts) {
 
     if ( err ){
       console.log(chalk.red('tac-webpack compile failed'));
-      ctx.emit('compile.failed', err);
+      if (ctx.emit) ctx.emit('compile.failed', err);
       return;
     };
 
     console.log(chalk.blue('tac-webpack compile done'));
 
-    ctx.emit('compile.end');
-    ctx.emit('build.end');
+    if (ctx.emit) ctx.emit('compile.end');
+    if (ctx.emit) ctx.emit('build.end');
   });
 }

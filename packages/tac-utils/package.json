@@ -13,14 +13,14 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "common-bin": "^2.8.2",
-    "cross-spawn": "^6.0.5",
-    "debug": "^4.1.1"
+    "cross-spawn": "^6.0.5"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.0",
     "@types/debug": "^4.1.5",
-    "@types/node": "^12.6.6",
+    "@types/node": "^12.7.5",
     "rimraf": "^2.6.2",
+    "tslib": "^1.10.0",
     "typescript": "^3.5.3"
   }
 }
