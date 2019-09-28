@@ -1,0 +1,16 @@
+{
+  "name": "tac-template-lib",
+  "version": "0.0.1",
+  "description": "A project for library",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.3"
+  }
+}

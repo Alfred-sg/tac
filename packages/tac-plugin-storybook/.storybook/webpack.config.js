@@ -5,14 +5,13 @@ const webpackChain = chain({
 }, {});
 const tacConfig = webpackChain.toConfig();
 
-console.log(process.cwd());
-
 module.exports = ({config}) => {
   config.module.rules = tacConfig.module.rules;
   
   config.resolve.alias = {
     ...config.resolve.alias, 
     ...tacConfig.resolve.alias,
+    "@storybook/react": require.resolve("@storybook/react"),
   };
   
   config.resolve.extensions = [

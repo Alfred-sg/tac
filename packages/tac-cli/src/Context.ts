@@ -102,6 +102,14 @@ export default class Context extends EventEmitter {
     const name = this.argv._[0];
     if (this.commands.has(name)) {
       this.yargs.showHelp('log');
+      this.yargs.command({
+        command: 'server',
+        aliases: ["s", "dev", "d"],
+        describe: "启动本地开发环境",
+        handler: (argv) => {
+          this.argv = argv;
+        }
+      });
       this.execCommand(name);
     } else {
       this.yargs.showHelp('log');

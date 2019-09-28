@@ -16,6 +16,7 @@
     "@storybook/react": "^5.2.1",
     "@tac/utils": "^0.0.1",
     "@tac/webpack": "^0.0.1",
+    "dargs": "^7.0.0",
     "mustache": "^3.1.0"
   },
   "devDependencies": {

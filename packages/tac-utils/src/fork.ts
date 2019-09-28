@@ -1,4 +1,4 @@
-import cp, { ChildProcess, ForkOptions } from 'child_process';
+import { fork, ChildProcess, ForkOptions } from 'child_process';
 import { CustomError } from "./types";
 
 const childs = new Set();
@@ -36,13 +36,13 @@ function graceful(proc: ChildProcess){
  * @param {string} modulePath 模块路径
  * @param {object} options 选项
  */
-export default function fork(
+export default function (
   modulePath: string, 
   args: any[] = [], 
-  options: ForkOptions
+  options: ForkOptions = {},
 ){
   options.stdio = options.stdio || 'inherit';
-  const proc: ChildProcess = cp.fork(modulePath, args, options);
+  const proc: ChildProcess = fork(modulePath, args, options);
   graceful(proc);
  
   return new Promise((resolve, reject) => {
