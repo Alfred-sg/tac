@@ -1,0 +1,25 @@
+{
+  "name": "@tac/plugin-docz",
+  "version": "0.0.1",
+  "description": "docz plugin for tac",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "rimraf lib && tsc --outDir lib"
+  },
+  "keywords": [
+    "jest"
+  ],
+  "author": "alfred.qiu",
+  "license": "MIT",
+  "dependencies": {
+    "@tac/utils": "^0.0.1",
+    "@tac/webpack": "^0.0.1",
+    "dargs": "^7.0.0",
+    "docz": "^2.0.0-rc.45"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.6.3"
+  }
+}

@@ -7,7 +7,8 @@ function build(opts = {}) {
   const { cwd } = opts;
   return new Promise(resolve => {
     console.log(`build for ${cwd}`);
-    const child = fork(SCRIPT, ['build', '--cwd', cwd], {
+    const child = fork(SCRIPT, ['build'], {
+      cwd: cwd,
       env: {
         ...process.env
       },

@@ -1,18 +1,14 @@
-import { resolve } from "path";
 import { server } from "@tac/webpack";
-import Context from "../Context";
+import { Context } from "@tac/utils";
 
 /**
  * 启动调试环境
  */
 export default (ctx: Context) => {
-  ctx.registerCommand('server', (ctx: Context) => {
-    const { cwd } = ctx;
-    const opts = require(resolve(cwd, `.tac/dev.config.js`));
-    server(ctx, opts);
-  }, {
-    desc: "启动本地开发环境",
+  ctx.registerCommand({
+    name: 'server', 
     aliases: ["s", "dev", "d"],
+    describe: "启动本地开发环境",
     options: {
       port: {
         type: "number",
@@ -43,13 +39,10 @@ export default (ctx: Context) => {
         default: "asset",
         alias: "a",
         description: "静态资源文件夹名"
-      },
-      tmp: {
-        type: "string",
-        default: "tmp",
-        alias: "t",
-        description: "临时文件夹名"
-      },
+      }
+    },
+    handler: (ctx: Context) => {
+      server(ctx, ctx.userConfig.webpack);
     },
   });
 }

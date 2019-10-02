@@ -16,6 +16,7 @@
   "dependencies": {
     "@tac/plugin-jest": "^0.0.1",
     "@tac/plugin-storybook": "^0.0.1",
+    "@tac/utils": "^0.0.1",
     "@tac/webpack": "^0.0.1",
     "chalk": "^2.4.2",
     "yargs": "^14.0.0"

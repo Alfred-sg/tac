@@ -3,3 +3,4 @@ export { default as dirs } from "./dirs";
 export { default as files } from "./files";
 export { default as fork } from './fork';
 export { default as install } from './install';
+export { default as readRc } from './readRc';

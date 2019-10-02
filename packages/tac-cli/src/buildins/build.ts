@@ -1,19 +1,21 @@
 import { resolve } from "path";
 import { build } from "@tac/webpack";
-import Context from "../Context";
+import { Context } from "@tac/utils";
 
 /**
  * 打包
  */
 export default (ctx: Context) => {
-  ctx.registerCommand('build', (ctx: Context) => {
-    const { cwd, argv } = ctx;
-    const { environment = "prod" } = argv;
-    const opts = require(resolve(cwd, `.tac/${environment}.config.js`));
-    build(ctx, opts);
-  }, {
-    desc: "打包脚本",
+  ctx.registerCommand({
+    name: 'build', 
+    describe: "打包脚本",
     aliases: ["b"],
+    handler: (ctx: Context) => {
+      const { cwd, argv } = ctx;
+      const { environment = "prod" } = argv;
+      const opts = require(resolve(cwd, `.tac/${environment}.config.js`));
+      build(ctx, opts);
+    }, 
     options: {
       environment: {
         type: "string",

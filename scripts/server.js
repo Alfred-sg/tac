@@ -7,7 +7,8 @@ function startDevServer(opts = {}) {
   const { port = 3001, cwd } = opts;
   return new Promise(resolve => {
     console.log(`Start dev server for ${cwd}`);
-    const child = fork(SCRIPT, ['server', '--port', port, '--cwd', cwd], {
+    const child = fork(SCRIPT, ['server', '--port', port], {
+      cwd: cwd,
       env: {
         ...process.env
       },

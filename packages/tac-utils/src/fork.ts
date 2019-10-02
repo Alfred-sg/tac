@@ -1,5 +1,8 @@
 import { fork, ChildProcess, ForkOptions } from 'child_process';
-import { CustomError } from "./types";
+
+interface CustomError extends Error {
+  code?: null | number | string,
+}
 
 const childs = new Set();
 let hasBound = false;

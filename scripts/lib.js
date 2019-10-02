@@ -7,7 +7,7 @@ function build(opts = {}) {
   const { cwd } = opts;
   return new Promise(resolve => {
     console.log(`lib for ${cwd}`);
-    const child = fork(SCRIPT, ['lib', '--cwd', cwd], {
+    const child = fork(SCRIPT, ['lib'], {
       cwd: cwd,
       env: {
         ...process.env,

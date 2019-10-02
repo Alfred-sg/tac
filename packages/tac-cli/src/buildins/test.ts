@@ -1,17 +1,17 @@
 import test from "@tac/plugin-jest";
-import Context from "../Context";
+import { Context } from "@tac/utils";
 
 /**
  * 使用 jest 测试
  */
 export default (ctx: Context) => {
-  ctx.registerCommand('test', (ctx: Context) => {
-    test(ctx, {}).catch((e: Error) => {
-      console.log(e);
-    });
-  }, {
-    desc: "运行测试脚本",
-    options: {
-    },
+  ctx.registerCommand({
+    name: 'test', 
+    describe: "运行测试脚本",
+    handler: (ctx: Context) => {
+      test(ctx, {}).catch((e: Error) => {
+        console.log(e);
+      });
+    }
   });
 }
