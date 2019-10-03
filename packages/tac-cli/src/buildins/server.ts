@@ -42,7 +42,7 @@ export default (ctx: Context) => {
       }
     },
     handler: (ctx: Context) => {
-      server(ctx, ctx.userConfig.webpack);
+      server(ctx, ctx.userConfig && ctx.userConfig.webpack);
     },
   });
 }

@@ -5,7 +5,7 @@ import { Context, fork } from "@tac/utils";
 export default function (ctx: Context) {
   ctx.registerCommand({
     name: 'lib', 
-    describe: "运行测试脚本",
+    describe: "调试库",
     handler: (ctx: Context) => {
       const { cwd } = ctx;
       const binPath = path.resolve(__dirname, "../node_modules/docz/bin/index.js");

@@ -76,6 +76,8 @@ export interface Opts extends webpack.Configuration {
   styleCacheGroup?: {[key: string]: any},
   /** 脚本分块 */
   jsCacheGroup?: {[key: string]: any},
+  /** 变量 */
+  define?: {[key: string]: any},
   /** 调试服务器选项 */
   devServer?: DevServer,
   /** 打包目录 */

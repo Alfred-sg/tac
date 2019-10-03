@@ -23,6 +23,7 @@ export default function apply(ctx: Ctx, opts: Opts) {
     enableMiniCssExtract = true, 
     plugins,
     paths,
+    define = {},
   } = opts;
   const html = paths && paths.html ? paths.html : "src";
   const dist = paths && paths.dist ? paths.dist : "dist";
@@ -31,7 +32,8 @@ export default function apply(ctx: Ctx, opts: Opts) {
 
   config.plugin('DefinePlugin')
     .use(Webpack.DefinePlugin, [{
-      'process.env.NODE_ENV': mode === 'production' ? '"production"' : '"development"' 
+      'process.env.NODE_ENV': mode === 'production' ? '"production"' : '"development"', 
+      ...define, 
     }]);
 
   Object.keys(htmls).map(fileName => {

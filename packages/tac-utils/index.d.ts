@@ -20,6 +20,7 @@ declare namespace Tac {
     options?: { 
       [key: string]: yargs.Options; 
     },
+    inited?: boolean;
   }
 
   function plugin(ctx: Context): void;
@@ -40,8 +41,10 @@ declare namespace Tac {
     env: object;
     /** 执行目录 */
     cwd: string;
+    /** 配置文件 */
+    configFile: string;
     /** 用户配置 */
-    userConfig: UserConfig;
+    userConfig?: UserConfig;
 
     /** 注册命令 */
     registerCommand(command: RegisterCommand): void;
@@ -83,7 +86,7 @@ declare namespace Tac {
     type: string
   }
 
-  function readRc(path: string, opts?: ReadRcOptions): { [key: string]: any; };
+  function readRc(path: string, opts?: ReadRcOptions): undefined | { [key: string]: any; };
 }
 
 export = Tac;
